@@ -1,56 +1,28 @@
 'use client'
-import { Button, TextField, Select, Text } from "@radix-ui/themes"
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
+import { TextField, Text, Select, Button } from "@radix-ui/themes"
 import { useForm, Controller } from "react-hook-form";
-import { query, getDocs } from "firebase/firestore";
-import { useState, useEffect } from "react";
-import {navigate} from '../../actions';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createContactSchema } from "@/app/validationSchemas";
-import {z} from "zod";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Spinner from "@/app/components/Spinner";
-import { addDataToFirestore } from "../../components/addDataToFirestore";
+import SimpleMDE from "react-simplemde-editor";
+// import {navigate} from '../../actions';
+import './styles.css'
+// import styles from ''
 
-type ContactForm = z.infer<typeof createContactSchema>;
-console.log(createContactSchema)
-
-export default function NewContactPage() {
-    const { register, handleSubmit, control, formState: { errors } } = useForm<ContactForm>({
-        resolver: zodResolver(createContactSchema)
-    });
-    const [isLoading, setIsLoading] = useState(false); // Add loading state
-
-    const onSubmit = async (data: Record<string, any>) => {
-        
-        const { name, email, description } = data;
-        setIsLoading(true); // Set loading state to true
-        // alert(name)
-        try {
-            const added = await addDataToFirestore(name, email, description);
-            navigate();
-
-            // router.push('/new-page');
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false); // Set loading state to false
-        }
-    }
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <form className="max-w-xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
-                <TextField.Root>
-                    <TextField.Input placeholder="Name" {...register('name')} />
+const viewContactPage = () => {
+  return (
+    <div>
+        <h1>Jake Soulier</h1>
+    <br/>
+        <div>
+            <h1>Edit Profile</h1>
+        <TextField.Root>
+                    <TextField.Input placeholder="Name"  />
                 </TextField.Root>
                 
-                <ErrorMessage>{errors.name?.message}</ErrorMessage>
+                
                 
                 <TextField.Root>
-                    <TextField.Input placeholder="Email" {...register('email')} />
+                    <TextField.Input placeholder="Email"  />
                 </TextField.Root>
-                <ErrorMessage>{errors.email?.message}</ErrorMessage>
+                
 
                 <Text as="div">
                     Has multiple structures
@@ -75,7 +47,7 @@ export default function NewContactPage() {
                     <TextField.Input placeholder="Date Claim Created" />
                 </TextField.Root>
 
-                <Text as="div" size="2" mb="1" weight="bold">
+                <Text as="div" size="2" mb="1" >
                     Policyholder Details
                 </Text>
 
@@ -91,13 +63,7 @@ export default function NewContactPage() {
                     <TextField.Input placeholder="Policyholder Phone Number" />
                 </TextField.Root>
 
-                <Text as="div" size="2" mb="1" weight="bold">
-                    Pictures
-                </Text>
-                <TextField.Root>
-                    <TextField.Input placeholder="add pic and displaynpm " />
-                </TextField.Root>
-                <Text as="div" size="2" mb="1" weight="bold">
+                <Text as="div" size="2" mb="1" >
                     More Info
                 </Text>
 
@@ -153,21 +119,24 @@ export default function NewContactPage() {
                     <TextField.Input placeholder="Sales Tax" />
                 </TextField.Root>
 
-                <Controller
-                    name='description'
-                    control={control}
-                    render={({ field }) => <SimpleMDE placeholder="addition notes" {...field} />}
-                />
-                <ErrorMessage>{errors.description?.message}</ErrorMessage>
+            
                 
-
-                <br /> {/* Add a line break */}
-                
-                <Button disabled={isLoading}>
-                    {isLoading ? <Spinner /> : 'Submit New Contact'}
-                </Button>
-                {/* <Spinner/> */}
-            </form>
         </div>
-    );
+        <br/>
+        <h1>Document</h1>
+        <Text>show document here</Text>
+        <Button>Generate pdf</Button>
+
+
+
+        <br/>
+        <h1>Hydro, place here or add link, or add option to navbar</h1>
+
+    </div>
+
+
+    
+  )
 }
+
+export default viewContactPage
