@@ -1,19 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
-
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  /* config options here */
+}
+ 
 module.exports = nextConfig
-
-// const nextConfig = {
-//     async redirects() {
-//         return [
-//             {
-//                 source: '/old-page',
-//                 destination: '/new-page',
-//                 permanent: true,
-//             },
-//             // Add more redirects here
-//         ];
-//     },
-// };
-
-// module.exports = nextConfig;
